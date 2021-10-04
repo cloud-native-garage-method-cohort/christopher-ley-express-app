@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+- service.yaml
+- route.yaml
+images:
+- name: quay.io/upslopeio/express-sample-app
+  newName: quay.io/chrisley7506/express-app-alex-chris
+  newTag: 6da70b4345ec2d92adbfdb775160056c5143f789
+commonLabels:
+  app: express-app
+  app.kubernetes.io/instance: express-app
+  app.kubernetes.io/name: express-app
