@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: express-sample-app-
+spec:
+  params:
+    - name: app-name
+      value: express-sample-app
+    - name: source-repo
+      value: 'https://github.com/cloud-native-garage-method-cohort/christopher-ley-express-app' 
+    - name: image-repo
+      value: quay.io/chrisley7506/express-sample-app
+  pipelineRef:
+    name: nodejs
+  serviceAccountName: build-bot
+  workspaces:
+    - name: pipeline-shared-data
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+    - name: gitops-repository
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
