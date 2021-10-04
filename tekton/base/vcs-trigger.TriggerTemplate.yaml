@@ -20,7 +20,7 @@ spec:
       - name: image-repo
         value: quay.io/chrisley7506/express-sample-app
       - name: source-repo
-        value: $(tt.params.source-repo)
+        value: https://github.com/cloud-native-garage-method-cohort/christopher-ley-express-app
       - name: sha
         value: $(tt.params.sha)
       pipelineRef:
@@ -28,6 +28,14 @@ spec:
       serviceAccountName: build-bot
       workspaces:
       - name: pipeline-shared-data
+        volumeClaimTemplate:
+          spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 1Gi
+      - name: gitops-repository
         volumeClaimTemplate:
           spec:
             accessModes:
