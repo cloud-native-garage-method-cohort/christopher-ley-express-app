@@ -3,8 +3,6 @@ kind: Route
 metadata:
   name: express-sample-app
 spec:
-  tls:
-    termination: edge
   to:
     name: express-sample-app
     kind: Service
